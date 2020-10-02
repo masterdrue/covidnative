@@ -9,7 +9,7 @@ function VideoCard() {
         <Card
             title="COVID-19 Transmission">
         <Text style={styles.cardRow}>
-            Watch this Video and learn something today!
+            Watch this Video about the COVID-19 Transmission Path and Learn something today!
         </Text>
         </Card>
     )
@@ -34,7 +34,7 @@ class Videos extends Component {
                         resizeMode="cover"
                         shouldPlay
                         isLooping
-                        style={{ margin: 10, height: 300 }}
+                        style={{ margin: 20, height: 300 }}
                     />
                 </Animatable.View>
             </ScrollView>
