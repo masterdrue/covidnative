@@ -4,6 +4,8 @@ import { Input, Button, CheckBox, Icon } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import * as ImageManipulator from 'expo-image-manipulator';
+import * as MediaLibrary from 'expo-media-library';
 import { createBottomTabNavigator } from 'react-navigation';
 import { baseUrl } from '../shared/baseUrl';
 
@@ -92,7 +94,7 @@ class LoginTab extends Component {
                                 iconStyle={{marginRight: 10}}
                             />
                         }
-                        buttonStyle={{backgroundColor:'#5637DD'}}
+                        buttonStyle={{backgroundColor:'#2b2933'}}
                     />
                 </View>
                 <View style={styles.formButton}>
@@ -104,11 +106,11 @@ class LoginTab extends Component {
                             <Icon
                                 name='user-plus'
                                 type='font-awesome'
-                                color='blue'
+                                color='#2b2933'
                                 iconStyle={{marginRight: 10}}
                             />
                         }
-                        titleStyle={{color: 'blue'}}
+                        titleStyle={{color: '#2b2933'}}
                     />
                 </View>
             </View>
@@ -154,7 +156,32 @@ class RegisterTab extends Component {
             });
             if (!capturedImage.cancelled) {
                 console.log(capturedImage);
-                this.setState({imageUrl: capturedImage.uri});
+                this.processImage(capturedImage.uri);
+                MediaLibrary.saveToLibraryAsync(capturedImage.uri);
+            }
+        }
+    }
+
+    processImage = async (imgUri) => {
+        const processedImage = await ImageManipulator.manipulateAsync(
+            imgUri,
+            [{resize: { width: 400 }}],
+            { format: ImageManipulator.SaveFormat.PNG }
+        );
+        console.log(processedImage);
+        this.setState({imageUrl: processedImage.uri})
+    }
+
+    getImageFromGallery = async () => {
+        const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if (cameraRollPermission.status === 'granted') {
+            const capturedImage = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                aspect: [1, 1]
+            });
+            if (!capturedImage.cancelled) {
+                console.log(capturedImage);
+                this.processImage(capturedImage.uri);
             }
         }
     }
@@ -178,12 +205,18 @@ class RegisterTab extends Component {
                     <View style={styles.imageContainer}>
                         <Image
                             source={{uri: this.state.imageUrl}}
-                            loadingIndicatorSource={require('./images/logo.png')}
+                            loadingIndicatorSource={require('./images/logo-30.gif')}
                             style={styles.image}
                         />
                         <Button
                             title='Camera'
                             onPress={this.getImageFromCamera}
+                            buttonStyle={{backgroundColor: '#2b2933'}}
+                        />
+                        <Button
+                            title='Gallery'
+                            onPress={this.getImageFromGallery}
+                            buttonStyle={{backgroundColor: '#2b2933'}}
                         />
                     </View>
                     <Input
@@ -245,7 +278,7 @@ class RegisterTab extends Component {
                                     iconStyle={{marginRight: 10}}
                                 />
                             }
-                            buttonStyle={{backgroundColor: '#5637DD'}}
+                            buttonStyle={{backgroundColor: '#2b2933'}}
                         />
                     </View>
                 </View>
@@ -261,8 +294,8 @@ const Login = createBottomTabNavigator(
     },
     {
         tabBarOptions: {
-            activeBackgroundColor: '#5637DD',
-            inactiveBackgroundColor: '#CEC8FF',
+            activeBackgroundColor: '#2b2933',
+            inactiveBackgroundColor: '#d5d4d9',
             activeTintColor: '#fff',
             inactiveTintColor: '#808080',
             labelStyle: {fontSize: 16}
@@ -286,7 +319,7 @@ const styles = StyleSheet.create({
         backgroundColor: null
     },
     formButton: {
-        margin: 20,
+        margin: 0,
         marginRight: 40,
         marginLeft: 40
     },

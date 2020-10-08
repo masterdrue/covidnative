@@ -26,7 +26,7 @@ const HomeNavigator = createStackNavigator(
     {
         navigationOptions: ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: '#2b2933'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -49,7 +49,7 @@ const VideosNavigator = createStackNavigator(
     {    
         navigationOptions: ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: '#2b2933'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -73,7 +73,7 @@ const FavoritesNavigator = createStackNavigator(
     {    
         navigationOptions: ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: '#2b2933'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -97,7 +97,7 @@ const LoginNavigator = createStackNavigator(
     {
         navigationOptions: ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: '#2b2933'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -120,10 +120,10 @@ const CustomDrawerContentComponent = props => (
             forceInset={{top: 'always', horizontal: 'never'}}>
             <View style={styles.drawerHeader}>
                 <View style={{flex: 1}}>
-                    <Image source={require('./images/logo.png')} style={styles.drawerImage} />
+                    <Image source={require('./images/logo-30.gif')} style={styles.drawerImage} />
                 </View>
                 <View style={{flex: 2}}>
-                    <Text style={styles.drawerHeaderText}>Nucamp</Text>
+                    <Text style={styles.drawerHeaderText}>CV19-NATIVE</Text>
                 </View>
             </View>
             <DrawerItems {...props} />
@@ -190,7 +190,7 @@ const MainNavigator = createDrawerNavigator(
     },
     {
         initialRouteName: 'Videos',
-        drawerBackgroundColor: '#CEC8FF',
+        drawerBackgroundColor: '#d5d4d9',
         contentComponent: CustomDrawerContentComponent
     }
 );
@@ -256,8 +256,8 @@ const styles = StyleSheet.create({
         flex: 1
     },
     drawerHeader: {
-        backgroundColor: '#5637DD',
-        height: 140,
+        backgroundColor: '#2b2933',
+        height: 120,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
